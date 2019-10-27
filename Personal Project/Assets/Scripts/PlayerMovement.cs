@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Projectile Prefab
+    public GameObject projPrefab;
+
     //aiming = true, stays aiming until mouseUp
     private bool aiming = false;
 
@@ -52,18 +55,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
         {
-            //Temp Var
-            float yVel = rBody.velocity.y;
-
             //Get Mouse Distance
-            distX = (mouseX - camPosX)/20;
-            distZ = (mouseZ - camPosZ)/20;
+            distX = (mouseX - camPosX) / 20;
+            distZ = (mouseZ - camPosZ) / 20;
 
-            //Shoot function
+            //Launch function
+            SelfLaunch(distX, distZ, rBody.velocity.y);
+
+            //Shoot Projectile()
+            ShootProjectile(-distX, -distZ, rBody.velocity.y);
+
+            //Shoot end
             aiming = false;
-
-            //RigidbodyMovement (velocity)
-            rBody.velocity = new Vector3(distX, yVel, distZ);
         }
 
         //PlayerMovement (Transform.Translate)
@@ -73,6 +76,18 @@ public class PlayerMovement : MonoBehaviour
         */
         
 
+    }
+
+    private void ShootProjectile(float dx, float dz, float yVel)
+    {
+        GameObject clone = Instantiate(projPrefab, transform.position, transform.rotation);
+        clone.GetComponent<Rigidbody>().velocity = new Vector3(dx, yVel, dz);
+    }
+
+    private void SelfLaunch(float dx, float dz, float yVel)
+    {
+        //RigidbodyMovement (velocity)
+        rBody.velocity = new Vector3(dx, yVel, dz);
     }
 
     private void OnMouseEnter()
