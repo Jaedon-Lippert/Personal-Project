@@ -56,14 +56,14 @@ public class PlayerMovement : MonoBehaviour
         if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
         {
             //Get Mouse Distance
-            distX = (mouseX - camPosX) / 20;
-            distZ = (mouseZ - camPosZ) / 20;
+            distX = (mouseX - camPosX);
+            distZ = (mouseZ - camPosZ);
 
             //Launch function
-            SelfLaunch(distX, distZ, rBody.velocity.y);
+            SelfLaunch(distX/50, distZ/50, rBody.velocity.y);
 
             //Shoot Projectile()
-            ShootProjectile(-distX, -distZ, rBody.velocity.y);
+            ShootProjectile(-distX/20, -distZ/20, rBody.velocity.y);
 
             //Shoot end
             aiming = false;

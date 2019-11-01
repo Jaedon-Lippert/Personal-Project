@@ -19,12 +19,22 @@ public class MyProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Check if collider has the boundary tag boundary
+        //Get Tag Component
         Tags tg = other.GetComponent<Tags>();
-        tg.FindTag("boundary");
 
-        //Destroy Myself
-        Debug.Log("Hit a Wall");
-        Destroy(gameObject);
+        //Collisions
+        if (tg.FindTag("boundary"))
+        {
+            //collision with wall
+            Debug.Log("Hit a Wall");
+            Destroy(gameObject);
+        }
+        else if (tg.FindTag("grunt"))
+        {
+            //collision with grunt
+            Debug.Log("Hit a Grunt");
+            Destroy(gameObject);
+            Destroy(other);
+        }
     }
 }
