@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Launch Dampener
+    private float dampProj = 20.0f;
+    private float dampPlayer = 100.0f;
+
     //Projectile Prefab
     public GameObject projPrefab;
 
@@ -60,10 +64,10 @@ public class PlayerMovement : MonoBehaviour
             distZ = (mouseZ - camPosZ);
 
             //Launch function
-            SelfLaunch(distX/50, distZ/50, rBody.velocity.y);
+            SelfLaunch(distX/dampPlayer, distZ/dampPlayer, rBody.velocity.y);
 
             //Shoot Projectile()
-            ShootProjectile(-distX/20, -distZ/20, rBody.velocity.y);
+            ShootProjectile(-distX/dampProj, -distZ/dampProj, rBody.velocity.y);
 
             //Shoot end
             aiming = false;

@@ -11,7 +11,7 @@ public class IgnoreCollider : MonoBehaviour
     {
         for (int i = 0; i < ignore.Length; i++)
         {
-            Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), ignore[i].GetComponent<Collider>());
+            //Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), ignore[i].GetComponent<Collider>());
         }
     }
 

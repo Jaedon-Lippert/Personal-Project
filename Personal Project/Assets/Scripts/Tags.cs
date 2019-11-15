@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tags : MonoBehaviour
 {
     public string[] startTags;
-    private static string[] tags;
+    private string[] tags;
 
     private void Start()
     {
