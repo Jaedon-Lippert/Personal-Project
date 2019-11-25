@@ -4,9 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //SCREEN START
+    //Get Screen Size
+    private float sHeight;
+    private float sWidth;
+
+    //Intended Screen Size
+    private float iH = 695f;
+    private float iW = 1540f;
+
+    //Convert
+    private float cH;
+    private float cW;
+    //SCREEN END
+
     //Launch Dampener
     private float dampProj = 20.0f;
-    private float dampPlayer = 100.0f;
+    private float dampPlayer = 50.0f;
 
     //Projectile Prefab
     public GameObject projPrefab;
@@ -36,10 +50,20 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform target;
 
+    //Game Status
+    public bool gameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        sHeight = Screen.height;
+        sWidth = Screen.width;
 
+        cH = iH / sHeight;
+        cW = iW / sWidth;
+
+        Debug.Log(sHeight);
+        Debug.Log(sWidth);
     }
 
     // Update is called once per frame
@@ -60,8 +84,8 @@ public class PlayerMovement : MonoBehaviour
         if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
         {
             //Get Mouse Distance
-            distX = (mouseX - camPosX);
-            distZ = (mouseZ - camPosZ);
+            distX = (mouseX - camPosX) * cW;
+            distZ = (mouseZ - camPosZ) * cH;
 
             //Launch function
             SelfLaunch(distX/dampPlayer, distZ/dampPlayer, rBody.velocity.y);
@@ -102,5 +126,20 @@ public class PlayerMovement : MonoBehaviour
     private void OnMouseExit()
     {
         mouseOver = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Tags hitObject = collision.gameObject.GetComponent<Tags>();
+
+        if (hitObject.FindTag("grunt"))
+        {
+            Debug.Log("Game Over");
+            gameOver = true;
+        } else if (hitObject.FindTag("bouncer"))
+        {
+            Debug.Log("Game Over");
+            gameOver = true;
+        }
     }
 }
