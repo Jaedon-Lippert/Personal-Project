@@ -22,19 +22,23 @@ public class PlayerMovement : MonoBehaviour
     private float dampProj = 20.0f;
     private float dampPlayer = 50.0f;
 
-    //Projectile Prefab
-    public GameObject projPrefab;
-
     //aiming = true, stays aiming until mouseUp
     private bool aiming = false;
 
     //mouseOver = true, permits aiming to equal true
     private bool mouseOver;
 
+    //Projectile Prefab
+    public GameObject projPrefab;
+
     //Camera Used
     public Camera cam;
 
-    public Rigidbody rBody;
+    //Game Status
+    public bool gameOver = false;
+
+    private Rigidbody rBody;
+    private Transform target;
 
     //mousePostion
     private float mouseX;
@@ -48,14 +52,14 @@ public class PlayerMovement : MonoBehaviour
     private float camPosX;
     private float camPosZ;
 
-    public Transform target;
-
-    //Game Status
-    public bool gameOver = false;
-
+  
     // Start is called before the first frame update
     void Start()
     {
+        target = GetComponent<Transform>();
+        rBody = GetComponent<Rigidbody>();
+
+
         sHeight = Screen.height;
         sWidth = Screen.width;
 
@@ -76,27 +80,27 @@ public class PlayerMovement : MonoBehaviour
         //Update mose position
         mouseX = Input.mousePosition.x;
         mouseZ = Input.mousePosition.y;
+        if (!gameOver) {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && mouseOver)
+            {
+                aiming = true;
+            }
+            if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                //Get Mouse Distance
+                distX = (mouseX - camPosX) * cW;
+                distZ = (mouseZ - camPosZ) * cH;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseOver)
-        {
-            aiming = true;
+                //Launch function
+                SelfLaunch(distX / dampPlayer, distZ / dampPlayer, rBody.velocity.y);
+
+                //Shoot Projectile()
+                ShootProjectile(-distX / dampProj, -distZ / dampProj, rBody.velocity.y);
+
+                //Shoot end
+                aiming = false;
+            }
         }
-        if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            //Get Mouse Distance
-            distX = (mouseX - camPosX) * cW;
-            distZ = (mouseZ - camPosZ) * cH;
-
-            //Launch function
-            SelfLaunch(distX/dampPlayer, distZ/dampPlayer, rBody.velocity.y);
-
-            //Shoot Projectile()
-            ShootProjectile(-distX/dampProj, -distZ/dampProj, rBody.velocity.y);
-
-            //Shoot end
-            aiming = false;
-        }
-
         //PlayerMovement (Transform.Translate)
         /*
         transform.Translate(Vector3.forward * Time.deltaTime * distZ);
@@ -108,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ShootProjectile(float dx, float dz, float yVel)
     {
+        
         GameObject clone = Instantiate(projPrefab, transform.position, transform.rotation);
         clone.GetComponent<Rigidbody>().velocity = new Vector3(dx, yVel, dz);
     }

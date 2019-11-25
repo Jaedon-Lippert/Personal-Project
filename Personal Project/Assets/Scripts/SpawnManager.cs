@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private int entities = 0;
     public float[,] cornerCoords = { { 6.5f, 4f }, { 6.5f, -4f }, { -6.5f, 4f }, { -6.5f, -4f } };
     private float defY = 0.55f;
     public GameObject[] enemyPrefabs;
@@ -20,6 +21,12 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    public int Entities
+    {
+        get { return entities; }
+        set { entities -= value; }
+    }
+
     void SpawnEnemy()
     {
         //Random index in coornerCoords
@@ -32,5 +39,6 @@ public class SpawnManager : MonoBehaviour
         Instantiate(enemyPrefabs[0], gameObject.transform, true);
         */
         Instantiate(enemyPrefabs[enemyListIndex], new Vector3(cornerCoords[cornerCoordsIndex, 0], defY, cornerCoords[cornerCoordsIndex, 1]), transform.rotation);
+        entities += 1;
     }
 }

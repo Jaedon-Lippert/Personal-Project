@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class ClickIndicator : MonoBehaviour
 {
+    private PlayerMovement playerScript;
     public Material myMat;
-    private Color defaultCol;
     private bool touching;
+    public Color defaultCol;
     public Color tColor;
+    public Color tDead;
     // Start is called before the first frame update
     void Start()
     {
-        defaultCol = myMat.color;
+        myMat.color = defaultCol;
+        playerScript = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (playerScript.gameOver)
+        {
+            myMat.color = tDead;
+        }
     }
 
     private void OnMouseEnter()
@@ -32,7 +38,8 @@ public class ClickIndicator : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (touching) { myMat.color = tColor; }
+        
+        if (touching && !playerScript.gameOver) { myMat.color = tColor; }
     }
 
     private void OnMouseUp()

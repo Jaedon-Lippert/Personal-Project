@@ -52,8 +52,8 @@ public class Bouncer : MonoBehaviour
         ray = new Ray(transform.position, moveDirection);
         if (Physics.SphereCast(ray, radius, out hit, detDist))
         {
-            if (!hit.collider.GetComponent<Tags>().FindTag("player")) {
-                Debug.Log("hit not a player");
+            if (!hit.collider.GetComponent<Tags>().FindTag("no bounce"))
+            {
                 moveDirection = Vector3.Reflect(moveDirection, hit.normal);
 
                 moveDirection = new Vector3(moveDirection.x, 0.0f, moveDirection.z);

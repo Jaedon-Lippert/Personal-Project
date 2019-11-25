@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -7989690642575917132}
   - component: {fileID: -4702549953657121301}
   - component: {fileID: 9050152932857202695}
+  - component: {fileID: 627331632887620838}
   m_Layer: 9
   m_Name: Pojectile
   m_TagString: PlayerProjectile
@@ -138,6 +139,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignore:
   - {fileID: 0}
+--- !u!114 &627331632887620838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167132025319636350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8badd20adbb45f747adf05d6ad3b8061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTags:
+  - projectile
+  - no bounce
 --- !u!1 &167132025923530584
 GameObject:
   m_ObjectHideFlags: 0

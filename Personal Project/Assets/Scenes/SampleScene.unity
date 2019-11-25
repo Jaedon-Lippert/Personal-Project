@@ -1402,8 +1402,6 @@ MonoBehaviour:
   projPrefab: {fileID: 167132025319636350, guid: eb8795ba63e7ca94ab10c6fad9ea75a8,
     type: 3}
   cam: {fileID: 963194227}
-  rBody: {fileID: 1601312736}
-  target: {fileID: 1601312740}
   gameOver: 0
 --- !u!23 &1601312738
 MeshRenderer:
@@ -1492,7 +1490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myMat: {fileID: 2100000, guid: e56f5e317495d944f98745fb2b41c772, type: 2}
+  defaultCol: {r: 0, g: 1, b: 0.10012627, a: 0}
   tColor: {r: 1, g: 0, b: 0, a: 0}
+  tDead: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1601312743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,6 +1519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTags:
   - player
+  - no bounce
 --- !u!4 &1704139073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 6310599d67dc46449832651d7cfaf1e0,

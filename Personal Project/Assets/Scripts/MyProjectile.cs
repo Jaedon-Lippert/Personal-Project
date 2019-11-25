@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MyProjectile : MonoBehaviour
 {
+    private SpawnManager spawnScript;
     private GameObject UIcanvas;
     private float lifeSpan = 10f;
     // Start is called before the first frame update
     void Start()
     {
+        spawnScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         Invoke("selfDestroy", lifeSpan);
         UIcanvas = GameObject.Find("Canvas");
     }
@@ -41,6 +43,9 @@ public class MyProjectile : MonoBehaviour
 
             //On destroy
             UIcanvas.GetComponent<UI>().Score = 1;
+
+            //Entities remaining
+            spawnScript.Entities = 1;
         }
         else if (hitObject.FindTag("bouncer"))
         {
@@ -51,6 +56,9 @@ public class MyProjectile : MonoBehaviour
 
             //On destroy
             UIcanvas.GetComponent<UI>().Score = 1;
+
+            //Entities remaining
+            spawnScript.Entities = 1;
         }
     }
 

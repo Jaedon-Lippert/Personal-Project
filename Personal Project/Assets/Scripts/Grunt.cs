@@ -12,6 +12,9 @@ public class Grunt : MonoBehaviour
     private float distX;
     private float distY;
 
+    //Spawn Manager Script
+    //private SpawnManager spawnScript;
+
     //Movement
     private float speed = 2;
 
@@ -26,6 +29,7 @@ public class Grunt : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        //spawnScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
