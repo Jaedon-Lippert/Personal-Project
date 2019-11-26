@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTags:
+  - enemy
   - grunt
 --- !u!114 &5047259828628824030
 MonoBehaviour:

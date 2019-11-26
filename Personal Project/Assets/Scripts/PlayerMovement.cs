@@ -34,11 +34,15 @@ public class PlayerMovement : MonoBehaviour
     //Camera Used
     public Camera cam;
 
+    //Audio Files
+    public AudioClip playerDeath;
+
     //Game Status
     public bool gameOver = false;
 
     private Rigidbody rBody;
     private Transform target;
+    private AudioSource audioOutput;
 
     //mousePostion
     private float mouseX;
@@ -58,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         target = GetComponent<Transform>();
         rBody = GetComponent<Rigidbody>();
-
+        audioOutput = GetComponent<AudioSource>();
 
         sHeight = Screen.height;
         sWidth = Screen.width;
@@ -136,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Tags hitObject = collision.gameObject.GetComponent<Tags>();
-
+        /*
         if (hitObject.FindTag("grunt"))
         {
             Debug.Log("Game Over");
@@ -144,6 +148,16 @@ public class PlayerMovement : MonoBehaviour
         } else if (hitObject.FindTag("bouncer"))
         {
             Debug.Log("Game Over");
+            gameOver = true;
+        }
+        */
+        if (hitObject.FindTag("enemy"))
+        {
+            Debug.Log("Game Over");
+            if (!gameOver)
+            {
+                audioOutput.PlayOneShot(playerDeath);
+            }
             gameOver = true;
         }
     }
