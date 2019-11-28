@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Grunt : MonoBehaviour
 {
-
-    //Player Position
     private GameObject player;
+    private GameController game;
 
     //Player Position
     private float distX;
@@ -16,18 +15,19 @@ public class Grunt : MonoBehaviour
     //private SpawnManager spawnScript;
 
     //Movement
-    private float speed = 2;
+    public float speed = 2.0f;
 
     //Priority
     private char prio = '!';
 
     //Position Threshold
-    private float posThresh = 0.5f;
+    readonly float posThresh = 0.5f;
 
     
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameController").GetComponent<GameController>();
         player = GameObject.Find("Player");
         //spawnScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
     }
@@ -45,11 +45,11 @@ public class Grunt : MonoBehaviour
         switch (prio)
         {
             case 'x':
-                transform.Translate(Vector3.left * Time.deltaTime * Charge(distX) * speed, Space.World);
+                transform.Translate(Vector3.left * Time.deltaTime * Charge(distX) * speed * game.speed, Space.World);
                 //Debug.Log(Mathf.Abs(distX) + " < " + Mathf.Abs(distY));
                 break;
             case 'y':
-                transform.Translate(Vector3.back * Time.deltaTime * Charge(distY) * speed, Space.World);
+                transform.Translate(Vector3.back * Time.deltaTime * Charge(distY) * speed * game.speed, Space.World);
                 //Debug.Log(Mathf.Abs(distX) + " > " + Mathf.Abs(distY));
                 break;
             case '!':

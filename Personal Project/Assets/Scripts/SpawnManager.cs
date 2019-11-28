@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private GameController game;
     private int entities = 0;
-    public float[,] cornerCoords = { { 6.5f, 4f }, { 6.5f, -4f }, { -6.5f, 4f }, { -6.5f, -4f } };
-    private float defY = 0.55f;
+    readonly float[,] cornerCoords = { { 6.5f, 4f }, { 6.5f, -4f }, { -6.5f, 4f }, { -6.5f, -4f } };
+    readonly float defY = 0.55f;
     public GameObject[] enemyPrefabs;
 
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameController").GetComponent<GameController>();
         InvokeRepeating("SpawnEnemy", 1.0f, 4.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (game.GameOver) CancelInvoke("SpawnEnemy");
     }
 
     public int Entities

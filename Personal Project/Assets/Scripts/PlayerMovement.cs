@@ -4,23 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //SCREEN START
-    //Get Screen Size
-    private float sHeight;
-    private float sWidth;
-
-    //Intended Screen Size
-    private float iH = 695f;
-    private float iW = 1540f;
-
-    //Convert
-    private float cH;
-    private float cW;
-    //SCREEN END
+    private GameController game;
 
     //Launch Dampener
-    private float dampProj = 20.0f;
-    private float dampPlayer = 50.0f;
+    public float dampProj = 20.0f;
+    public float dampPlayer = 50.0f;
 
     //aiming = true, stays aiming until mouseUp
     private bool aiming = false;
@@ -37,17 +25,15 @@ public class PlayerMovement : MonoBehaviour
     //Audio Files
     public AudioClip playerDeath;
 
-    //Game Status
-    public bool gameOver = false;
-
     private Rigidbody rBody;
     private Transform target;
     private AudioSource audioOutput;
 
+    /*
     //mousePostion
     private float mouseX;
     private float mouseZ;
-
+    */
     //mouseDistance
     private float distX;
     private float distZ;
@@ -55,15 +41,17 @@ public class PlayerMovement : MonoBehaviour
     //positionOnScreen
     private float camPosX;
     private float camPosZ;
-
   
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameController").GetComponent<GameController>();
+
         target = GetComponent<Transform>();
         rBody = GetComponent<Rigidbody>();
         audioOutput = GetComponent<AudioSource>();
 
+        /*
         sHeight = Screen.height;
         sWidth = Screen.width;
 
@@ -72,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log(sHeight);
         Debug.Log(sWidth);
+        */
     }
 
     // Update is called once per frame
@@ -81,10 +70,7 @@ public class PlayerMovement : MonoBehaviour
         camPosX = cam.WorldToScreenPoint(target.position).x;
         camPosZ = cam.WorldToScreenPoint(target.position).y;
 
-        //Update mose position
-        mouseX = Input.mousePosition.x;
-        mouseZ = Input.mousePosition.y;
-        if (!gameOver) {
+        if (!game.GameOver) {
             if (Input.GetKeyDown(KeyCode.Mouse0) && mouseOver)
             {
                 aiming = true;
@@ -92,8 +78,8 @@ public class PlayerMovement : MonoBehaviour
             if (aiming && Input.GetKeyUp(KeyCode.Mouse0))
             {
                 //Get Mouse Distance
-                distX = (mouseX - camPosX) * cW;
-                distZ = (mouseZ - camPosZ) * cH;
+                distX = (game.MouseX - camPosX) * game.ConvertedWidth;
+                distZ = (game.MouseZ - camPosZ) * game.ConvertedHeight;
 
                 //Launch function
                 SelfLaunch(distX / dampPlayer, distZ / dampPlayer, rBody.velocity.y);
@@ -154,11 +140,11 @@ public class PlayerMovement : MonoBehaviour
         if (hitObject.FindTag("enemy"))
         {
             Debug.Log("Game Over");
-            if (!gameOver)
+            if (!game.GameOver)
             {
                 audioOutput.PlayOneShot(playerDeath);
             }
-            gameOver = true;
+            game.GameOver = true;
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClickIndicator : MonoBehaviour
 {
+    private GameController game;
     private PlayerMovement playerScript;
     public Material myMat;
     private bool touching;
@@ -13,6 +14,7 @@ public class ClickIndicator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameController").GetComponent<GameController>();
         myMat.color = defaultCol;
         playerScript = GetComponent<PlayerMovement>();
     }
@@ -20,7 +22,7 @@ public class ClickIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.gameOver)
+        if (game.GameOver)
         {
             myMat.color = tDead;
         }
@@ -39,7 +41,7 @@ public class ClickIndicator : MonoBehaviour
     private void OnMouseDown()
     {
         
-        if (touching && !playerScript.gameOver) { myMat.color = tColor; }
+        if (touching && !game.GameOver) { myMat.color = tColor; }
     }
 
     private void OnMouseUp()

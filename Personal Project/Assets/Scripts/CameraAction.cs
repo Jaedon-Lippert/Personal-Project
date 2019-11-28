@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class CameraAction : MonoBehaviour
 {
-    public PlayerMovement playerScript;
-    private bool gameOverAction = false;
+    private GameController game;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        game = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerScript.gameOver && !gameOverAction)
+        if (game.GameOver && GetComponent<AudioSource>().pitch > 0.6f)
         {
-            
-            GetComponent<AudioSource>().pitch -= 0.01f;
 
-            if(GetComponent<AudioSource>().pitch <= 0.6f)
-                gameOverAction = true;
+            GetComponent<AudioSource>().pitch /= 1.0f + 0.3f * Time.deltaTime;
         }
     }
 }

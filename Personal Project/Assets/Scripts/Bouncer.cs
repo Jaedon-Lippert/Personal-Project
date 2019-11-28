@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bouncer : MonoBehaviour
 {
-    private float mag = 5f;
-    private float detDist = 0.5f;
+    private GameController game;
+
+    public float mag = 4f;
+    readonly float detDist = 0.5f;
     private float radius;
 
     Vector3 moveDirection;
@@ -13,13 +15,11 @@ public class Bouncer : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
-
-    private float size = 1;
-
     // Start is called before the first frame update
     void Start()
     {
-        radius = GetComponent<SphereCollider>().radius;
+        game = GameObject.Find("GameController").GetComponent<GameController>();
+        radius = GetComponent<SphereCollider>().radius/2;
 
         int[] r = { 0, 2 };
         int[] yRange = { -1, 1 };
@@ -60,7 +60,7 @@ public class Bouncer : MonoBehaviour
             }
         }
 
-        transform.Translate(moveDirection * mag * Time.deltaTime);
+        transform.Translate(moveDirection * mag * game.speed * Time.deltaTime);
     }
 
     private float FindAngle(float x, float y)

@@ -251,6 +251,51 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 511796679833962393, guid: 27935e8f602384c2f9b1d2c1393fa460, type: 3}
   - {fileID: 7551582231330594795, guid: d00c74e92d5680445b5dac868ef8a367, type: 3}
+  - {fileID: 1784039552415657008, guid: 2e51608bf1b1abf448a43087a948d33b, type: 3}
+--- !u!1 &305116218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 305116220}
+  - component: {fileID: 305116219}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &305116219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305116218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96efb8eb5e5e2384ab8b5fcceaab0216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+--- !u!4 &305116220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305116218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ac2f1ae5146ab4299b6d596e647103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScript: {fileID: 1601312737}
 --- !u!1 &1035947887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1387412683}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Barriers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1400,11 +1444,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e578187652f06dd438371fc6224998e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dampProj: 20
+  dampPlayer: 50
   projPrefab: {fileID: 167132025319636350, guid: eb8795ba63e7ca94ab10c6fad9ea75a8,
     type: 3}
   cam: {fileID: 963194227}
   playerDeath: {fileID: 8300000, guid: eb4dcf34c5ab7584faf82800875ee397, type: 3}
-  gameOver: 0
 --- !u!23 &1601312738
 MeshRenderer:
   m_ObjectHideFlags: 0
