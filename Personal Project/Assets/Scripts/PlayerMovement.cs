@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         
         GameObject clone = Instantiate(projPrefab, transform.position, transform.rotation);
         clone.GetComponent<Rigidbody>().velocity = new Vector3(dx, yVel, dz);
+        //game.Projectiles(clone);
     }
 
     private void SelfLaunch(float dx, float dz, float yVel)
