@@ -25,4 +25,16 @@ public class Tags : MonoBehaviour
         }
         return results;
     }
+
+    public static GameObject[] ObjectsByTag(string search)
+    {
+        //Get all objects in scene
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+        GameObject[] storedObjects = new GameObject[allObjects.Length];
+        //Filter
+        for (int i = 0; i < allObjects.Length; i++)
+        {
+
+        }
+    }
 }

@@ -48,8 +48,11 @@ public class Pulse : MonoBehaviour
         {
             player.GetComponent<Rigidbody>().AddForce(playerDistance * (pulseRadius - playerMag) * 3, ForceMode.Impulse);
             Debug.Log("Hit Player");
+
+            //Get projectiles
+            
         }
-        Debug.Log("Player Distance Magnitude was " + playerMag);
+        //Debug.Log("Player Distance Magnitude was " + playerMag);
 
     }
     void SpawnShoot()

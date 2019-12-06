@@ -49,6 +49,24 @@ public class GameController : MonoBehaviour
     //game speed
     public float speed;
 
+    /*
+    //projectile list
+    private GameObject[] projectiles;
+
+    public GameObject[] Projectiles()
+    {
+        return projectiles;
+    }
+    public void Projectiles(GameObject value)
+    {
+        GameObject[] tempArray = projectiles;
+        tempArray[projectiles.Length] = value;
+        projectiles = tempArray;
+
+        Debug.Log("Projectile Count: " + projectiles.Length);
+    }
+    */
+
     // Start is called before the first frame update
     void Start()
     {
