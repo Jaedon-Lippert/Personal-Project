@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pulse : MonoBehaviour
 {
     private GameObject player;
+    private GameController game;
     //private Transform pulse;
     private float pulseTimer;
     private float pulseTimerGoal;
@@ -15,6 +16,7 @@ public class Pulse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        game = GameObject.Find("GameController").GetComponent<GameController>();
         rBody = GetComponent<Rigidbody>();
         //pulse = GetComponentInChildren<Transform>();
         player = GameObject.Find("Player");
@@ -33,24 +35,36 @@ public class Pulse : MonoBehaviour
         if(pulseTimer < pulseTimerGoal) pulseTimer += Time.deltaTime;
         else
         {
-            BlastPlayer();
+            ExecuteBlast();
             Destroy(gameObject);
         }
         
     }
-    void BlastPlayer()
+    void ExecuteBlast()
     {
 
         //Get the players position relative to the blast source
-        Vector3 playerDistance = new Vector3(player.transform.position.x - transform.position.x, 0.0f, player.transform.position.z - transform.position.z);
-        float playerMag = playerDistance.magnitude;
-        if(playerMag <= pulseRadius)
-        {
-            player.GetComponent<Rigidbody>().AddForce(playerDistance * (pulseRadius - playerMag) * 3, ForceMode.Impulse);
-            Debug.Log("Hit Player");
+        Vector3 objectDistance; 
+        float mag;
 
-            //Get projectiles
-            
+        objectDistance = new Vector3(player.transform.position.x - transform.position.x, 0.0f, player.transform.position.z - transform.position.z);
+        mag = objectDistance.magnitude;
+
+        if (mag <= pulseRadius)
+        {
+            player.GetComponent<Rigidbody>().AddForce(objectDistance * (pulseRadius - mag) * 3, ForceMode.Impulse);
+            Debug.Log("Hit Player");        
+        }
+
+        for (int i = 0; i < game.ProjectilesInScene.Length; i++)
+        {
+            objectDistance = new Vector3(game.ProjectilesInScene[i].transform.position.x - transform.position.x, 0.0f, game.ProjectilesInScene[i].transform.position.z - transform.position.z);
+            mag = objectDistance.magnitude;
+            if (mag <= pulseRadius)
+            {
+                game.ProjectilesInScene[i].GetComponent<Rigidbody>().AddForce(objectDistance * (pulseRadius - mag) * 3, ForceMode.Impulse);
+                Debug.Log("Hit Projectile");
+            }
         }
         //Debug.Log("Player Distance Magnitude was " + playerMag);
 

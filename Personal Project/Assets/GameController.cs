@@ -67,6 +67,14 @@ public class GameController : MonoBehaviour
     }
     */
 
+    public GameObject[] ProjectilesInScene
+    {
+        get
+        {
+            return Tags.ObjectsByTag("projectile");
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -26,15 +26,33 @@ public class Tags : MonoBehaviour
         return results;
     }
 
+    //Find objects by custom script tags
     public static GameObject[] ObjectsByTag(string search)
     {
         //Get all objects in scene
         GameObject[] allObjects = FindObjectsOfType<GameObject>();
         GameObject[] storedObjects = new GameObject[allObjects.Length];
+        GameObject[] finalObjects;
+
         //Filter
+        int count = 0;
         for (int i = 0; i < allObjects.Length; i++)
         {
-
+            if (allObjects[i].GetComponent<Tags>().FindTag(search))
+            {
+                storedObjects[count] = allObjects[i];
+                count++;
+            }
         }
+        //Assign final length
+        finalObjects = new GameObject[count];
+
+        //Reassign to final array
+        for (int i = 0; i < count; i++)
+        {
+            finalObjects[i] = storedObjects[i];
+        }
+
+        return finalObjects;
     }
 }
