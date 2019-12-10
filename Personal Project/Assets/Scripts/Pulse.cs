@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Pulse : MonoBehaviour
 {
+
     private GameObject player;
     private GameController game;
+
+    public Material defMaterial;
+    private Renderer childMaterial;
+    private GameObject pulseBody;
     //private Transform pulse;
-    private float pulseTimer;
-    private float pulseTimerGoal;
+    private float pulseTimer = 0;
+    private float pulseTimerGoal = 5;
     private float pulseRadius;
     private Vector3 capsuleRotation;
     public Vector3 CapRot => capsuleRotation;
@@ -16,11 +21,17 @@ public class Pulse : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Child Object
+        pulseBody = GetComponentInChildren<Transform>().gameObject;
+        Destroy(pulseBody.GetComponent<Renderer>());
+        childMaterial = pulseBody.AddComponent<Renderer>();
+        childMaterial.material = defMaterial;
+
+
         game = GameObject.Find("GameController").GetComponent<GameController>();
         rBody = GetComponent<Rigidbody>();
         //pulse = GetComponentInChildren<Transform>();
         player = GameObject.Find("Player");
-        pulseTimerGoal = 5;
         pulseRadius = 5;
         SpawnShoot();
         //Physics.IgnoreCollision(GetComponent<SphereCollider>(), pulse.GetComponent<CapsuleCollider>(), true);
@@ -38,6 +49,13 @@ public class Pulse : MonoBehaviour
             ExecuteBlast();
             Destroy(gameObject);
         }
+
+        //Blinker
+        //red
+        if (Mathf.Round(Mathf.Sin(Mathf.Pow(2.4f,pulseTimer))) == 0.0f)
+        childMaterial.GetComponent<Renderer>().material.color = Color.red;
+        //default
+        else { childMaterial.material.color = Color.yellow; }
         
     }
     void ExecuteBlast()

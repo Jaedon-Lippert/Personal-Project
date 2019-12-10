@@ -38,7 +38,7 @@ public class Tags : MonoBehaviour
         int count = 0;
         for (int i = 0; i < allObjects.Length; i++)
         {
-            if (allObjects[i].GetComponent<Tags>().FindTag(search))
+            if (allObjects[i].GetComponent<Tags>()?.FindTag(search) == true)
             {
                 storedObjects[count] = allObjects[i];
                 count++;
